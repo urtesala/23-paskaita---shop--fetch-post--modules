@@ -1,55 +1,37 @@
 "use strict";
 console.log("main.js");
 
-class Shop {
-  // html element targets
-  el = {};
-  items = [];
+const app = new Shop();
+console.log("app ===", app);
+
+class MyForm {
+  formEl = document.forms[0];
 
   constructor() {
-    this.initTargets();
-    this.getItems();
+    this.initListener();
   }
 
-  initTargets() {
-    this.el.list = document.getElementById("products");
-  }
-
-  getItems() {
-    getProducts().then((products) => {
-      this.items = products;
-      // console.log(JSON.stringify(products[0], null, 2));
-      this.renderList();
+  initListener() {
+    this.formEl.addEventListener("submit", (event) => {
+      // sutabdyti forma nuo issiuntimo
+      event.preventDefault();
+      // iskonsoliti kazka
+      console.log("js control form");
+      // surinkti visus inputus i javaskriptini objekta
+      // ispausdinti objeka
     });
   }
 
-  makeOneItem(itemObj) {
-    /* 
-    <div class="shop-item card">
-    </div>
-    */
-    const divEl = document.createElement("div");
-    divEl.className = "shop-item card";
-    divEl.innerHTML = `
-      <img src="${itemObj.thumbnail}" alt="preke">
-        <h3>${itemObj.title}</h3>
-        <p class="price">${itemObj.price} eur</p>
-        <p>Category: ${itemObj.category} (id:${itemObj.id})</p>
-        <div class="control">
-          <button>Add to cart</button>
-          <a href="product.html?prId=${itemObj.id}">more info ></a>
-        </div>
-    `;
-    return divEl;
+  getCategoriesArray(allDataArr) {
+    // is allDataArr === app.items
+    // atrinkti visas skirtingas kategorijas i masyva ir ji irasyti i this.categoriesArr
   }
 
-  renderList() {
-    this.el.list.innerHTML = "";
-    this.items
-      .map((iObj) => this.makeOneItem(iObj))
-      .forEach((htmlEl) => this.el.list.append(htmlEl));
+  getCategoriesFetch() {
+    // gauti kategorijas is https://dummyjson.com/products/categories
+    // irasyti i this.categoriesArrFetch
   }
-} // class end
+}
 
-const app = new Shop();
-console.log("app ===", app);
+const form1 = new MyForm();
+console.log("form1 ===", form1);
